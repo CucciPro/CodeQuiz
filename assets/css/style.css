@@ -1,0 +1,30 @@
+.quiz {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    padding: 20px;
+}
+
+.option {
+    background-color: darkviolet;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+} 
+
+.option:hover {
+    background-color: pink;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+}
+
+header {
+    padding: 15px 20px;
+}
+
+.time {
+    float: right;
+}
+
+
