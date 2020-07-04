@@ -12,45 +12,44 @@
 */
 
 var questions = [
-    {q: "what year is it 1?", a:"20201", b:"20191", c:"20181", correct:"20171"},
-    {q: "what year is it 2?", correct:"20202", b:"20192", c:"20182", d:"20172"},
-    {q: "what year is it? 3", acorrect:"2020", b:"20193", c:"20183", d:"20173"}
+    { q: "Commonly used data types do NOT include:", o1: "strings", o2: "booleans", o3: "alerts", o4: "numbers", a: "alerts" },
+    { q: "The condition in an if / else statement is enclosed with: _________.", o1: "brackets", o2: "parenthesis", o3: "quotes", o4: "apostrophes", a: "parenthesis" },
+    { q: "Arrays in Javascript can be used to store________.", o1: "numbers and strings", o2: "other arrays", o3: "booleans", o4: "all of the above", a: "all of the above" },
+    { q: "String values must be enclosed within ________ when being assigned to variables.", o1: "parenthesis", o2: "quotes", o3: "good friends", o4: "all of the above", a: "quotes" },
+    { q: "A very useful tool used during the development and debugging for printing content to the debugger is:", o1: "JavaScript", o2: "terminal/bash", o3: "for loops", o4: "console.og", a: "for loops" },
 ]
 
+var currentQ = 0;
+var score = [];
+var timer = 60;
+var totalQ = questions.length;
 
-var button = document.getElementById("nextBtn")
-var i = 0
-button.addEventListener("click", function(){
+var timerStart = function() {
+    var time = function() {
+        document.getElementById("count").innerText = timer;
+        timer--;
+        if (timer === 0) {
+            document.getElementById("alert").innerHTML = "<p>Times Up!</p>";
+            clearInterval(counter);
+        }
+    };
 
-var question = document.getElementById("question")
-question.innerText = questions[i].q
+    if (timer === 60) {
+        var counter = setInterval(time, 1000);
+    } 
+};
 
+var start = function() {
+    currentQ = 0;
+    timer = 60;
+    document.getElementById("start").innerHTML = "<p>Click the button below to begin!</p></br><button id='button'>Start Quiz!</button>";
+    document.getElementById("button").addEventListener("click", getQuestions);
+    document.getElementById("button").addEventListener("click", timerStart);
+    return;
+};
 
-var label = document.getElementById("label1")
-label.innerText = questions[i].a
+var getQuestions = function() {
 
-var label = document.getElementById("label2")
-label.innerText = questions[i].b
+};
 
-var label = document.getElementById("label3")
-label.innerText = questions[i].c
-
-var label = document.getElementById("label4")
-label.innerText = questions[i].d
-
-i++
-var answer = document.getElementById("answer1")
-answer.value = label.innerText = questions[2].a
-
-answer.addEventListener("click", function(){
-    console.log(event)
-    var chosenAnswer = event.target.value
-
-    if(chosenAnswer == true){
-        //do something
-    } else {
-        // do something else
-    }
-})
-})
-
+start();

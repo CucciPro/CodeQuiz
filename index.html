@@ -8,30 +8,21 @@
 </head>
 <body>
     <header id="header">
-        <a href="./high-score.html">View High Scores</a>
-        <p id="time" class="time">Time: </p>
+        <a>View High Scores</a>
+        <p id="time" class="time">Time: <span id="count"></span> </p>
     </header>
     
     <div id="quiz" class="quiz">
-        <div id="question" class="question">
-            <p id="question">question1</p>
-            <input id="answer1" type="radio" name="answer1" value="">
-            <label id="label1" class="option" for="answer1">Answer1</label>
-        
-            <input id="answer2" type="radio" name="answer2" value="">
-            <label id="label2" class="option" for="answer2">Answer2</label>
-       
-            <input id="answer3" type="radio" name="answer3" value=""> 
-            <label id="label3" class="option" for="answer3">Answer3</label>
-        
-            <input id="answer4" type="radio" name="answer4" value="">
-            <label id="label4" class="option" for="answer4">Answer4</label>
-        </div>
+        <div id="start"></div>
+        <div id="alert"></div>
+        <div id="question" class="question"></div>
+        <div id="answers"></div>
+
         <div id="results" class="results">
 
         </div>
     </div>
     
-    <script src="script.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
