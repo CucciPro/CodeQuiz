@@ -1,3 +1,11 @@
+header {
+    padding: 15px 20px;
+}
+
+.time {
+    float: right;
+}
+
 .quiz {
     position: absolute;
     top: 30%;
@@ -5,28 +13,66 @@
     padding: 20px;
 }
 
-.answers {
-    visibility: hidden;
-    background-color: darkviolet;
+button{
+    background-color: #3c0653;
     color: white;
     border: none;
     padding: 10px 20px;
+    display: block;
+    cursor: pointer;
+    width: 50%;
+}
+
+button:hover {
+    background-color: #d897a2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+}
+
+.buttons {
+    visibility: hidden;
 } 
 
-.answers:hover {
-    background-color: pink;
+.buttons button{
+    display: block;
+    margin-top: 10px;
+    width: 130px;
+}
+
+.buttons button:hover {
+    margin-top: 10px;
+    width: 130px;
+}
+
+.hsButton {
+    background-color: #3c0653;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    display: inline;
+    cursor: pointer;
+    width: 130px;
+}
+
+.hsButton:hover {
+    background-color: #d897a2;
     color: white;
     border: none;
     padding: 10px 20px;
 }
 
-header {
-    padding: 15px 20px;
+.alert {
+    margin-top: 30px;
 }
 
-
-.time {
-    float: right;
+.highscore {
+    visibility: hidden; 
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    padding: 20px;
 }
+
 
 
