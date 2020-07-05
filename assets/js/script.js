@@ -23,8 +23,9 @@ var currentQ = 0;
 var score = [];
 var timer = 60;
 var totalQ = questions.length;
+var correct = ""
 
-var timerStart = function() {
+function timerStart() {
     var time = function() {
         document.getElementById("count").innerText = timer;
         timer--;
@@ -39,17 +40,59 @@ var timerStart = function() {
     } 
 };
 
-var start = function() {
+function hideAnswers() {
+
+    var hide = document.getElementById("answers");
+
+    if (hide.style.visibility === "hidden") {
+            hide.style.visibility = "visible";
+          } else {
+            hide.style.visibility = "visible";
+          } 
+}
+
+function start() {
     currentQ = 0;
     timer = 60;
-    document.getElementById("start").innerHTML = "<p>Click the button below to begin!</p></br><button id='button'>Start Quiz!</button>";
-    document.getElementById("button").addEventListener("click", getQuestions);
+    document.getElementById("question").innerHTML = "<p>Click the button below to begin!</p></br><button id='button'>Start Quiz!</button>";
     document.getElementById("button").addEventListener("click", timerStart);
+    document.getElementById("button").addEventListener("click", getQuiz);
+    document.getElementById("button").addEventListener("click", hideAnswers);
     return;
 };
 
-var getQuestions = function() {
+function getQuiz() {
+
+    document.getElementById("question").innerText = questions[currentQ].q;
+
+    document.getElementById("option1").innerText = questions[currentQ].o1;
+    document.getElementById("option2").innerText = questions[currentQ].o2;
+    document.getElementById("option3").innerText = questions[currentQ].o3;
+    document.getElementById("option4").innerText = questions[currentQ].o4;
+
+    document.getElementById("option1").addEventListener("click", checkAnswers);
+    document.getElementById("option2").addEventListener("click", checkAnswers);
+    document.getElementById("option3").addEventListener("click", checkAnswers);
+    document.getElementById("option4").addEventListener("click", checkAnswers);
 
 };
+
+function checkAnswers(e) {
+
+    var selectedOption = e.target;
+
+
+    if (selectedOption.textContent === questions[currentQ].a) {
+        correct = "Correct!"
+    } else {
+        correct = "Wrong!";
+        timer -= 10;
+    }
+    currentQ++;
+    document.getElementById("alert").innerHTML = correct;
+    return getQuiz();
+};
+
+
 
 start();

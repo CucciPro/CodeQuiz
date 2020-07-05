@@ -5,14 +5,15 @@
     padding: 20px;
 }
 
-.option {
+.answers {
+    visibility: hidden;
     background-color: darkviolet;
     color: white;
     border: none;
     padding: 10px 20px;
 } 
 
-.option:hover {
+.answers:hover {
     background-color: pink;
     color: white;
     border: none;
@@ -27,4 +28,5 @@ header {
 .time {
     float: right;
 }
+
 
