@@ -1,16 +1,3 @@
-/*
-
-# Question Game
-
-## Instructions
-
-* Starting from a blank HTML file, create an array with 10 question objects. Each object in the array should be structured as follows: 
-
-  `{ q: "QUESTION", a: "ANSWER" }`
-
-* Check the user's answer against the correct answer, and provide them with an alert telling them if they are right or wrong.
-*/
-
 var questions = [
     { q: "Commonly used data types do NOT include:", o1: "strings", o2: "booleans", o3: "alerts", o4: "numbers", a: "alerts" },
     { q: "The condition in an if / else statement is enclosed with: _________.", o1: "brackets", o2: "parenthesis", o3: "quotes", o4: "apostrophes", a: "parenthesis" },
@@ -35,10 +22,7 @@ function timerStart() {
             clearInterval(counter);
         }
         else if (currentQ === totalQ) {
-            document.getElementById("question").innerHTML = "<h3>All done!</h3>";
-            document.getElementById("answers").innerHTML = "<p>Your final score is " + userScore + "</p><br/>";
-            document.getElementById("alert").innerHTML = "<p>Enter initials: <input type='text' id='text1'></input><button id='submit'>Submit</button> </p>";
-            document.getElementById("submit").addEventListener("click", highScore);
+            complete();
             clearInterval(counter);
         }
     };
@@ -49,15 +33,53 @@ function timerStart() {
 };
 
 function showAnswers() {
-    var hide = document.getElementById("buttons");
+    var answerVis = document.getElementById("buttons");
 
-    if (hide.style.visibility === "hidden") {
-            hide.style.visibility = "visible";
+    if (answerVis.style.visibility === "hidden") {
+            answerVis.style.visibility = "visible";
           } else {
-            hide.style.visibility = "visible";
+            answerVis.style.visibility = "visible";
           } 
 };
 
+function hideHeader() {
+    var headerVis = document.getElementById("header");
+    
+    if (headerVis.style.visibility === "visible") {
+            headerVis.style.visibility = "hidden";
+          } else {
+            headerVis.style.visibility = "hidden";
+          } 
+};
+
+function hideQuiz() {
+    var quizVis = document.getElementById("quiz");
+    
+    if (quizVis.style.visibility === "visible") {
+            quizVis.style.visibility = "hidden";
+          } else {
+            quizVis.style.visibility = "hidden";
+          } 
+};
+
+function showHighscore() {
+    var highscoreVis = document.getElementById("highscore");
+
+    if (highscoreVis.style.visibility === "hidden") {
+            highscoreVis.style.visibility = "visible";
+          } else {
+            highscoreVis.style.visibility = "visible";
+          } 
+};
+
+
+function complete() {
+    document.getElementById("question").innerHTML = "<h3>All done!</h3>";
+    document.getElementById("answers").innerHTML = "<p>Your final score is " + userScore + "</p><br/>";
+    document.getElementById("alert").innerHTML = "<p>Enter initials: <input type='text' id='text1'></input><button id='submit'>Submit</button> </p>";
+    document.getElementById("submit").addEventListener("click", highScore);
+
+};
 
 function start() {
     currentQ = 0;
@@ -103,15 +125,45 @@ function checkAnswers(e) {
 };
 
 function highScore (){
+    hideQuiz();
+    hideHeader();
+    showHighscore();
+
     var username = document.getElementById("text1").value;
 
-    score.push([userScore, username]);
+    var scoreInfo = {
+        scores: userScore,
+        name: username
+    };
 
-    window.localStorage.setItem("score", JSON.stringify(score));
+    score.push(scoreInfo);
 
-    var storedScores = JSON.parse(window.localStorage.getItem("score"));
-        
-    document.getElementById('disp').innerHTML= storedScores;
+    localStorage.setItem("score", JSON.stringify(score));
+
+    if (score.length > 0) {
+        storedScores = JSON.parse(localStorage.getItem("score"));
+   }
+
+    document.getElementById('disp').textContent = "";
+
+    var oList = document.createElement("ol");
+    for (i = 0; i < score.length; i++) {
+        var list = document.createElement("li");
+        list.textContent = score[i].name + " - " + score[i].scores;
+        oList.appendChild(list);
+        document.getElementById('disp').appendChild(oList);
+    };
+
+    document.getElementById('back').addEventListener("click", start);
+    document.getElementById('clear').addEventListener("click", clearHS);
+
+
+};
+
+function clearHS() {
+    localStorage.clear();
+    scores = [];
+    start();
 };
 
 

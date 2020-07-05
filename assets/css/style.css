@@ -1,5 +1,7 @@
 header {
     padding: 15px 20px;
+    visibility: visible;
+
 }
 
 .time {
@@ -11,6 +13,7 @@ header {
     top: 30%;
     left: 30%;
     padding: 20px;
+    visibility: visible;
 }
 
 button{
