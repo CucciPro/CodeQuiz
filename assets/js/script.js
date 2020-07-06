@@ -9,42 +9,41 @@ var questions = [
 var currentQ = 0;
 var score = [];
 var timer = 60;
+var userScore = 0;
 var totalQ = questions.length;
 var correct = "";
 var userScore = 0;
-
-function timerStart() {
-    var time = function() {
-        document.getElementById("count").innerText = timer;
-        timer--;
-        if (timer === 0) {
-            document.getElementById("alert").innerHTML = "<p>Times Up!</p>";
-            clearInterval(counter);
-        }
-        else if (currentQ === totalQ) {
-            complete();
-            clearInterval(counter);
-        }
-    };
-
-    if (timer === 60) {
-        var counter = setInterval(time, 1000);
-    } 
-};
+var answerVis = document.getElementById("buttons");
+var headerVis = document.getElementById("header");
+var quizVis = document.getElementById("quiz");
+var highscoreVis = document.getElementById("highscore");
+var completeVis = document.getElementById("complete");
+var alertVis = document.getElementById("alert");
 
 function showAnswers() {
-    var answerVis = document.getElementById("buttons");
-
     if (answerVis.style.visibility === "hidden") {
             answerVis.style.visibility = "visible";
           } else {
             answerVis.style.visibility = "visible";
           } 
 };
+function hideAnswers() {
+    if (answerVis.style.visibility === "visible") {
+            answerVis.style.visibility = "hidden";
+          } else {
+            answerVis.style.visibility = "hidden";
+          } 
+};
+
+function showHeader() {
+    if (headerVis.style.visibility === "hidden") {
+            headerVis.style.visibility = "visible";
+          } else {
+            headerVis.style.visibility = "visible";
+          } 
+};
 
 function hideHeader() {
-    var headerVis = document.getElementById("header");
-    
     if (headerVis.style.visibility === "visible") {
             headerVis.style.visibility = "hidden";
           } else {
@@ -52,9 +51,15 @@ function hideHeader() {
           } 
 };
 
+function showQuiz() {
+    if (quizVis.style.visibility === "hidden") {
+            quizVis.style.visibility = "visible";
+          } else {
+            quizVis.style.visibility = "visible";
+          } 
+};
+
 function hideQuiz() {
-    var quizVis = document.getElementById("quiz");
-    
     if (quizVis.style.visibility === "visible") {
             quizVis.style.visibility = "hidden";
           } else {
@@ -63,8 +68,6 @@ function hideQuiz() {
 };
 
 function showHighscore() {
-    var highscoreVis = document.getElementById("highscore");
-
     if (highscoreVis.style.visibility === "hidden") {
             highscoreVis.style.visibility = "visible";
           } else {
@@ -72,23 +75,59 @@ function showHighscore() {
           } 
 };
 
+function hideHighscore() {
+    if (highscoreVis.style.visibility === "visible") {
+            highscoreVis.style.visibility = "hidden";
+          } else {
+            highscoreVis.style.visibility = "hidden";
+          } 
+};
 
-function complete() {
-    document.getElementById("question").innerHTML = "<h3>All done!</h3>";
-    document.getElementById("answers").innerHTML = "<p>Your final score is " + userScore + "</p><br/>";
-    document.getElementById("alert").innerHTML = "<p>Enter initials: <input type='text' id='text1'></input><button id='submit'>Submit</button> </p>";
-    document.getElementById("submit").addEventListener("click", highScore);
+function showComplete() {
+    if (completeVis.style.visibility === "hidden") {
+            completeVis.style.visibility = "visible";
+          } else {
+            completeVis.style.visibility = "visible";
+          } 
+};
 
+function hideComplete() {
+    if (completeVis.style.visibility === "visible") {
+            completeVis.style.visibility = "hidden";
+          } else {
+            completeVis.style.visibility = "hidden";
+          } 
+};
+
+function showAlert() {
+    if (alertVis.style.visibility === "hidden") {
+            alertVis.style.visibility = "visible";
+          } else {
+            alertVis.style.visibility = "visible";
+          } 
+};
+
+function hideAlert() {
+    if (alertVis.style.visibility === "visible") {
+            alertVis.style.visibility = "hidden";
+          } else {
+            alertVis.style.visibility = "hidden";
+          } 
 };
 
 function start() {
     currentQ = 0;
     timer = 60;
+    showQuiz();
+    hideAlert();
+    showHeader();
+    hideHighscore();
+    hideAnswers();
+    hideComplete();
     document.getElementById("question").innerHTML = "<p>Click the button below to begin!</p></br><button id='button'>Start Quiz!</button>";
     document.getElementById("button").addEventListener("click", timerStart);
     document.getElementById("button").addEventListener("click", getQuiz);
     document.getElementById("button").addEventListener("click", showAnswers);
-    return;
 };
 
 function getQuiz() {
@@ -114,25 +153,59 @@ function checkAnswers(e) {
 
     if (selectedOption.textContent === questions[currentQ].a) {
         correct = "Correct!"
-        userScore += 10;
     } else {
         correct = "Wrong!";
         timer -= 10;
     }
     currentQ++;
     document.getElementById("alert").innerHTML = correct;
+    showAlert();
     return getQuiz();
 };
 
+function timerStart() {
+    var time = function() {
+        document.getElementById("count").innerText = timer;
+        timer--;
+        if (timer === 0) {
+            document.getElementById("alert").innerHTML = "<p>Times Up!</p>";
+            clearInterval(counter);
+        }
+        else if (currentQ === totalQ) {
+            userScore = timer;
+            complete();
+            hideQuiz();
+            hideAnswers();
+            clearInterval(counter);
+        }
+    };
+
+    if (timer === 60) {
+        var counter = setInterval(time, 1000);
+    } 
+};
+
+function complete() {
+    showComplete();
+    hideHighscore();
+    hideAlert();
+    document.getElementById("message").innerHTML = "<h3>All done!</h3>";
+    document.getElementById("score").innerHTML = "<p>Your final score is " + userScore+ "</p><br/>";
+    document.getElementById("section").innerHTML = "<p>Enter initials: <input type='text' id='text1'></input><button id='submit'>Submit</button> </p>";
+    document.getElementById("submit").addEventListener("click", highScore);
+
+};
+
 function highScore (){
-    hideQuiz();
     hideHeader();
+    hideComplete();
     showHighscore();
+    hideQuiz();
 
     var username = document.getElementById("text1").value;
 
     var scoreInfo = {
-        scores: userScore,
+        scores: timer,
         name: username
     };
 
@@ -160,11 +233,25 @@ function highScore (){
 
 };
 
+function viewHighscore() {
+    hideHeader();
+    hideComplete();
+    showHighscore();
+    hideQuiz();
+
+    document.getElementById('disp').textContent = oList;
+
+    document.getElementById('back').addEventListener("click", start);
+    document.getElementById('clear').addEventListener("click", clearHS);
+}
+
 function clearHS() {
     localStorage.clear();
-    scores = [];
-    start();
+    score = [];
+    list = " ";
+    return start();
 };
 
 
 start();
+document.getElementById("viewHS").addEventListener("click", viewHighscore);
