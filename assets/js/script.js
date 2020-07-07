@@ -248,8 +248,8 @@ function viewHighscore() {
 function clearHS() {
     localStorage.clear();
     score = [];
-    list = " ";
-    return start();
+    document.getElementById('disp').textContent = "";
+    start();
 };
 
 
